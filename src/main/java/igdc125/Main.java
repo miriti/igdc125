@@ -33,7 +33,6 @@ public class Main extends Applet implements Runnable {
 
 		Main main = new Main(); // ;)
 
-		jpanel.add(main);
 		frame.add(jpanel);
 		frame.pack();
 		frame.setVisible(true);
@@ -43,10 +42,9 @@ public class Main extends Applet implements Runnable {
 
 	@Override
 	public void start() {
-		_volatileImage = createVolatileImage(64, 64);
+		_volatileImage = jpanel.createVolatileImage(64, 64);
 		_game = new Game();
 		new Thread(this).start();
-
 	}
 
 	@Override

@@ -1,7 +1,12 @@
 apply plugin: 'java'
+apply plugin: 'eclipse'
 
 jar {
 	manifest {
 		attributes 'Main-Class': 'igdc125.Main'
 	}
+}
+
+task run(dependsOn:jar) << {
+	javaexec { main="-jar"; args jar.archivePath }
 }
