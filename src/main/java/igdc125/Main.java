@@ -2,6 +2,7 @@ package igdc125;
 
 import java.applet.Applet;
 import java.awt.Dimension;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
 
@@ -12,8 +13,8 @@ import javax.swing.JPanel;
 public class Main extends Applet implements Runnable {
 	public static JFrame frame;
 	private static JPanel jpanel;
-	public static final int SCALE = 4;
-	public static final int WND_SIZE = 64 * SCALE;
+	public static final int SCALE = 5;
+	public static final int WND_SIZE = 64 * SCALE + 100;
 
 	private Image _volatileImage;
 	private boolean _running = true;
@@ -52,9 +53,11 @@ public class Main extends Applet implements Runnable {
 		while (_running) {
 			_volatileImage.getGraphics().fillRect(0, 0, 64, 64);
 
-			_game.render(_volatileImage.getGraphics());
+			_game.update(60f / 1000f);
+			_game.render((Graphics2D) _volatileImage.getGraphics());
 
-			jpanel.getGraphics().drawImage(_volatileImage, 0, 0, WND_SIZE, WND_SIZE, null);
+			int pos = (WND_SIZE - 64 * SCALE) / 2;
+			jpanel.getGraphics().drawImage(_volatileImage, pos, pos, 64 * SCALE, 64 * SCALE, null);
 
 			try {
 				Thread.sleep(1000 / 60);

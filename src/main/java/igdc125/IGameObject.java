@@ -1,9 +1,9 @@
 package igdc125;
 
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 public interface IGameObject {
 	void update(float delta);
 
-	void render(Graphics g);
+	void render(Graphics2D g);
 }

@@ -1,25 +1,27 @@
 package igdc125;
 
 import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 
-public class Game implements IGameObject {
+public class Game extends Container {
+
+	int phase = 0;
+	
 
 	@Override
 	public void update(float delta) {
-		// TODO Auto-generated method stub
-
+		//phase++;
+		super.update(delta);
 	}
 
 	@Override
-	public void render(Graphics g) {
+	public void draw(Graphics2D g) {
 		for (int i = 0; i < 64; i++) {
 			for (int j = 0; j < 64; j++) {
-				g.setColor(new Color((int) (Math.random() * 0xffffff)));
-				g.fillRect(i, j, 1, 1);
+				g.setColor(Palette.random());
+				g.drawLine(i, j, i, j);
 			}
 		}
-
 	}
 
 }
