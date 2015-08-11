@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -14,7 +15,7 @@ public class Main extends Applet implements Runnable {
 	public static JFrame frame;
 	private static JPanel jpanel;
 	public static final int SCALE = 5;
-	public static final int WND_SIZE = 64 * SCALE + 100;
+	public static final int WND_SIZE = 64 * SCALE;
 
 	private Image _volatileImage;
 	private boolean _running = true;
@@ -56,8 +57,7 @@ public class Main extends Applet implements Runnable {
 			_game.update(60f / 1000f);
 			_game.render((Graphics2D) _volatileImage.getGraphics());
 
-			int pos = (WND_SIZE - 64 * SCALE) / 2;
-			jpanel.getGraphics().drawImage(_volatileImage, pos, pos, 64 * SCALE, 64 * SCALE, null);
+			jpanel.getGraphics().drawImage(_volatileImage, 0, 0, 64 * SCALE, 64 * SCALE, null);
 
 			try {
 				Thread.sleep(1000 / 60);
