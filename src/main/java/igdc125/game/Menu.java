@@ -1,6 +1,9 @@
-package igdc125;
+package igdc125.game;
 
 import java.awt.Graphics2D;
+
+import igdc125.core.Container;
+import igdc125.core.Resources;
 
 public class Menu extends Container {
 	public Menu() {

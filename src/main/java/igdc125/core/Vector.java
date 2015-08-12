@@ -1,4 +1,4 @@
-package igdc125;
+package igdc125.core;
 
 public class Vector {
     public float x;

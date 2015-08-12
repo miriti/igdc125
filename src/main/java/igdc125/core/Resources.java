@@ -1,4 +1,4 @@
-package igdc125;
+package igdc125.core;
 
 import java.awt.Font;
 import java.awt.FontFormatException;

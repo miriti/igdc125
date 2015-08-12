@@ -12,6 +12,9 @@ import java.util.Date;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import igdc125.game.Game;
+import igdc125.game.Palette;
+
 @SuppressWarnings("serial")
 public class Main extends Applet implements Runnable {
 	public static JFrame frame;

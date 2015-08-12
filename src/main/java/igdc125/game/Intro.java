@@ -1,5 +1,8 @@
-package igdc125;
+package igdc125.game;
 
+import igdc125.core.Container;
+import igdc125.core.Resources;
+import igdc125.core.Sprite;
 import igdc125.interpolation.Chain;
 import igdc125.interpolation.Interpolate;
 import igdc125.interpolation.Sine;

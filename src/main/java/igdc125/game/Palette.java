@@ -1,4 +1,4 @@
-package igdc125;
+package igdc125.game;
 
 import java.awt.Color;
 

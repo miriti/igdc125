@@ -1,4 +1,6 @@
-package igdc125;
+package igdc125.game;
+
+import igdc125.core.Container;
 
 public class Game extends Container {
 
