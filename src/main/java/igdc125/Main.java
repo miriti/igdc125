@@ -17,7 +17,7 @@ public class Main extends Applet implements Runnable {
 	public static final int SCALE = 5;
 	public static final int WND_SIZE = 64 * SCALE;
 
-	private Image _volatileImage;
+	private Image _render;
 	private boolean _running = true;
 	private Game _game;
 
@@ -44,7 +44,8 @@ public class Main extends Applet implements Runnable {
 
 	@Override
 	public void start() {
-		_volatileImage = jpanel.createVolatileImage(64, 64);
+		_render = new BufferedImage(64, 64, BufferedImage.TYPE_3BYTE_BGR);
+		_render.setAccelerationPriority(1);
 		_game = new Game();
 		new Thread(this).start();
 	}
@@ -52,12 +53,12 @@ public class Main extends Applet implements Runnable {
 	@Override
 	public void run() {
 		while (_running) {
-			_volatileImage.getGraphics().fillRect(0, 0, 64, 64);
+			_render.getGraphics().fillRect(0, 0, 64, 64);
 
 			_game.update(60f / 1000f);
-			_game.render((Graphics2D) _volatileImage.getGraphics());
+			_game.render((Graphics2D) _render.getGraphics());
 
-			jpanel.getGraphics().drawImage(_volatileImage, 0, 0, 64 * SCALE, 64 * SCALE, null);
+			jpanel.getGraphics().drawImage(_render, 0, 0, 64 * SCALE, 64 * SCALE, null);
 
 			try {
 				Thread.sleep(1000 / 60);

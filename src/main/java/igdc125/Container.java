@@ -26,7 +26,8 @@ public abstract class Container implements IGameObject {
 
 	}
 
-	public abstract void draw(Graphics2D g);
+	public void draw(Graphics2D g) {
+	};
 
 	@Override
 	public void render(Graphics2D g) {
@@ -38,7 +39,7 @@ public abstract class Container implements IGameObject {
 			child.render(g);
 		}
 
-		//g.setTransform(matrix);
+		// g.setTransform(matrix);
 	}
 
 }
