@@ -12,6 +12,7 @@ import java.util.Date;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import igdc125.core.Resources;
 import igdc125.game.Game;
 import igdc125.game.Palette;
 
@@ -52,6 +53,7 @@ public class Main extends Applet implements Runnable {
 		_render = new BufferedImage(64, 64, BufferedImage.TYPE_3BYTE_BGR);
 		_render.setAccelerationPriority(1);
 		_game = new Game();
+		frame.addKeyListener(_game);
 		new Thread(this).start();
 	}
 
@@ -63,11 +65,12 @@ public class Main extends Applet implements Runnable {
 			long currentTime = new Date().getTime();
 
 			Graphics renderGraphics = _render.getGraphics();
+			renderGraphics.setFont(Resources.getFont());
 			renderGraphics.setColor(Palette.PALETTE[0]);
 			renderGraphics.fillRect(0, 0, 64, 64);
-			
+
 			_game.update((currentTime - lastTime) / 1000f);
-			
+
 			lastTime = currentTime;
 			_game.render((Graphics2D) renderGraphics);
 

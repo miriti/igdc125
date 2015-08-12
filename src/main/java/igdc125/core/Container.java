@@ -1,9 +1,11 @@
 package igdc125.core;
 
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
-public abstract class Container implements IGameObject {
+public abstract class Container implements IGameObject, KeyListener {
 	public float x = 0;
 	public float y = 0;
 	public float rotation = 0;
@@ -24,7 +26,7 @@ public abstract class Container implements IGameObject {
 
 	@Override
 	public void update(float delta) {
-		for (int i = children.size()-1; i >= 0; i--) {
+		for (int i = children.size() - 1; i >= 0; i--) {
 			Container child = children.get(i);
 			child.update(delta);
 		}
@@ -43,6 +45,28 @@ public abstract class Container implements IGameObject {
 		for (Container child : children) {
 			child.render(g);
 		}
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		for (int i = children.size() - 1; i >= 0; i--) {
+			children.get(i).keyPressed(e);
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		for (int i = children.size() - 1; i >= 0; i--) {
+			children.get(i).keyReleased(e);
+		}
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		for (int i = children.size() - 1; i >= 0; i--) {
+			children.get(i).keyTyped(e);
+		}
+
 	}
 
 }

@@ -14,9 +14,8 @@ public class Game extends Container {
 	public void setState(Container newState) {
 		if (_currentState != null) {
 			removeChild(_currentState);
-		}		
+		}
 		addChild(newState);
 		_currentState = newState;
 	}
-
 }
