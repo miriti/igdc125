@@ -1,16 +1,20 @@
 package igdc125;
 
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
 public class Game extends Container {
+
+	Container _currentState = null;
 
 	public Game() {
 		super();
-		addChild(new Intro());
+		setState(new Intro());
+	}
+
+	public void setState(Container newState) {
+		if (_currentState != null) {
+			removeChild(_currentState);
+		}		
+		addChild(newState);
+		_currentState = newState;
 	}
 
 }

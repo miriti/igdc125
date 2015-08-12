@@ -2,10 +2,12 @@ package igdc125;
 
 import java.applet.Applet;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
+import java.util.Date;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -52,11 +54,19 @@ public class Main extends Applet implements Runnable {
 
 	@Override
 	public void run() {
-		while (_running) {
-			_render.getGraphics().fillRect(0, 0, 64, 64);
+		long lastTime = new Date().getTime();
 
-			_game.update(60f / 1000f);
-			_game.render((Graphics2D) _render.getGraphics());
+		while (_running) {
+			long currentTime = new Date().getTime();
+
+			Graphics renderGraphics = _render.getGraphics();
+			renderGraphics.setColor(Palette.PALETTE[0]);
+			renderGraphics.fillRect(0, 0, 64, 64);
+			
+			_game.update((currentTime - lastTime) / 1000f);
+			
+			lastTime = currentTime;
+			_game.render((Graphics2D) renderGraphics);
 
 			jpanel.getGraphics().drawImage(_render, 0, 0, 64 * SCALE, 64 * SCALE, null);
 
