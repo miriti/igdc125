@@ -23,16 +23,11 @@ public class Intro extends Container {
 		sprite.scale.set(2, 2);
 		addChild(sprite);
 
-		int_size = new Chain();
-		int_size.add(new Sine().init(0.0f, 0.8f, 2.5f));
-		int_size.add(new Sine().init(0.8f, 1.0f, 2.0f));
-		int_size.add(new Linear().init(1.0f, 1.0f, 0.5f));
-		int_size.add(new Linear().init(1.0f, 0.0f, 1.0f));
+		int_size = new Chain().add(new Sine().init(0.0f, 0.8f, 2.5f)).add(new Sine().init(0.8f, 1.0f, 2.0f))
+				.add(new Linear().init(1.0f, 1.0f, 0.5f)).add(new Linear().init(1.0f, 0.0f, 1.0f));
 
-		int_rotation = new Chain();
-		int_rotation.add(new Sine().init((float) (Math.PI * 20f), 0, 2.5f));
-		int_rotation.add(new Linear().init(0.0f, 0.0f, 2.5f));
-		int_rotation.add(new Sine().init(0.0f, (float) (Math.PI * 20f), 1f));
+		int_rotation = new Chain().add(new Sine().init((float) (Math.PI * 20f), 0, 2.5f))
+				.add(new Linear().init(0.0f, 0.0f, 2.5f)).add(new Sine().init(0.0f, (float) (Math.PI * 20f), 1f));
 	}
 
 	@Override

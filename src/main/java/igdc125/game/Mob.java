@@ -1,10 +1,9 @@
 package igdc125.game;
 
-import igdc125.core.Container;
 import igdc125.core.Resources;
 import igdc125.core.Sprite;
 
-public class Mob extends Container {
+public class Mob extends MapObject {
 	
 	private Sprite sprite;
 

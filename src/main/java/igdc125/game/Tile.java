@@ -7,6 +7,15 @@ import igdc125.core.Sprite;
 public class Tile extends Container {
 	public static final int SIZE = 9;
 
+	public static Tile factory(int color) {
+		switch (color) {
+		case 0xffff0000:
+			return new Tile();
+		default:
+			return null;
+		}
+	}
+
 	public Tile() {
 		super();
 

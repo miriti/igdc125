@@ -27,7 +27,7 @@ public class Menu extends Container {
 
 			@Override
 			public void exec() {
-				((Game) parent).setState(new Level());
+				((Game) parent).setState(new Map());
 			}
 		});
 
