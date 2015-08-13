@@ -27,7 +27,7 @@ public class Menu extends Container {
 
 			@Override
 			public void exec() {
-				((Game) parent).setState(new Intro());
+				((Game) parent).setState(new Level());
 			}
 		});
 
@@ -54,20 +54,19 @@ public class Menu extends Container {
 			g.drawString(items.get(i).title, 10, 15 + i * 10);
 		}
 	}
-	
 
 	@Override
-	public void keyReleased(KeyEvent e) {
+	public void keyPressed(KeyEvent e) {
 		switch (e.getKeyCode()) {
-		case 10:
+		case KeyEvent.VK_ENTER:
 			items.get(selectedItem).exec();
 			break;
-		case 40:
+		case KeyEvent.VK_DOWN:
 			selectedItem++;
 			if (selectedItem > items.size() - 1)
 				selectedItem = 0;
 			break;
-		case 38:
+		case KeyEvent.VK_UP:
 			selectedItem--;
 			if (selectedItem < 0)
 				selectedItem = items.size() - 1;

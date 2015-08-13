@@ -3,6 +3,7 @@ package igdc125.core;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 
 public abstract class Container implements IGameObject, KeyListener {
@@ -34,9 +35,11 @@ public abstract class Container implements IGameObject, KeyListener {
 
 	public void draw(Graphics2D g) {
 	};
-
+	
 	@Override
 	public void render(Graphics2D g) {
+		AffineTransform ma = g.getTransform();
+
 		g.translate(x, y);
 		g.rotate(rotation);
 		g.scale(scale.x, scale.y);
@@ -45,6 +48,8 @@ public abstract class Container implements IGameObject, KeyListener {
 		for (Container child : children) {
 			child.render(g);
 		}
+
+		g.setTransform(ma);
 	}
 
 	@Override

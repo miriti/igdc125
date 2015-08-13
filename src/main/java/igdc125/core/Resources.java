@@ -34,12 +34,16 @@ public class Resources {
 		return _instance._getImage(path);
 	}
 
+	public static BufferedImage getSprite(String path, int x, int y, int w, int h) {
+		BufferedImage _img = getImage(path);
+
+		return _img.getSubimage(x, y, w, h);
+	}
+
 	public Font _getFont() {
 		if (_font == null) {
 			try {
-				_font = Font
-						.createFont(Font.TRUETYPE_FONT, getClass().getClassLoader().getResourceAsStream("visitor2.ttf"))
-						.deriveFont(14f);
+				_font = Font.createFont(Font.TRUETYPE_FONT, getClass().getClassLoader().getResourceAsStream("visitor2.ttf")).deriveFont(14f);
 			} catch (FontFormatException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
