@@ -6,7 +6,7 @@ import java.awt.event.KeyListener;
 import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 
-public abstract class Container implements IGameObject, KeyListener {
+public abstract class Container extends Base implements IGameObject, KeyListener {
 	public float x = 0;
 	public float y = 0;
 	public float rotation = 0;
@@ -35,7 +35,7 @@ public abstract class Container implements IGameObject, KeyListener {
 
 	public void draw(Graphics2D g) {
 	};
-	
+
 	@Override
 	public void render(Graphics2D g) {
 		AffineTransform ma = g.getTransform();

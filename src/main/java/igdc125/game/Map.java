@@ -8,26 +8,28 @@ import igdc125.core.Resources;
 
 public class Map extends Container {
 	public Tile[][] map;
+	private Mob mob;
 
 	public Map() {
 		super();
 		initFromBitmap(Resources.getImage("map.png"));
-		addChild(new Mob());
+
+		mob = new Mob();
+		addChild(mob);
 	}
 
 	public void initFromBitmap(BufferedImage bitmap) {
 		int w = bitmap.getWidth();
 		int h = bitmap.getHeight();
 		map = new Tile[w][h];
-		
+
 		for (int i = 0; i < w; i++) {
 			for (int j = 0; j < h; j++) {
 				Tile tile = Tile.factory(bitmap.getRGB(i, j));
 				map[i][j] = tile;
 
 				if (tile != null) {
-					tile.x = i * Tile.SIZE;
-					tile.y = j * Tile.SIZE;
+					tile.setCell(i, j);
 					addChild(tile);
 				}
 			}
@@ -35,20 +37,36 @@ public class Map extends Container {
 	}
 
 	@Override
+	public void update(float delta) {
+		x = 32 - mob.x;
+		y = 32 - mob.y;
+		super.update(delta);
+	}
+
+	@Override
 	public void keyPressed(KeyEvent e) {
 		switch (e.getKeyCode()) {
 		case KeyEvent.VK_LEFT:
-			x--;
+			mob.x--;
 			break;
 		case KeyEvent.VK_RIGHT:
-			x++;
+			mob.x++;
 			break;
 		case KeyEvent.VK_UP:
-			y--;
+			mob.y--;
 			break;
 		case KeyEvent.VK_DOWN:
-			y++;
+			mob.y++;
 			break;
 		}
+	}
+
+	public Tile getTile(int x, int y) {
+		if ((x >= 0) && (x < map.length) && (y >= 0) && (y < map[0].length)) {
+			return map[x][y];
+		}
+
+		return null;
+
 	}
 }
