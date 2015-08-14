@@ -1,6 +1,7 @@
 package igdc125.game;
 
 import igdc125.core.Container;
+import igdc125.game.maps.Map;
 import igdc125.game.tiles.Tile;
 
 public abstract class MapObject extends Container {

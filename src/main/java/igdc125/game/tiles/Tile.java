@@ -6,8 +6,8 @@ import java.util.Formatter;
 import igdc125.core.Container;
 import igdc125.core.Resources;
 import igdc125.core.Sprite;
-import igdc125.game.Map;
 import igdc125.game.MapObject;
+import igdc125.game.maps.Map;
 
 public class Tile extends Container implements Formattable {
 	public static final int SIZE = 9;
@@ -22,6 +22,8 @@ public class Tile extends Container implements Formattable {
 			return null;
 		case 0xff00ff00:
 			return new TravalatorTile();
+		case 0xffff00ff:
+			return new Bonus();
 		default:
 			return null;
 		}
@@ -46,5 +48,9 @@ public class Tile extends Container implements Formattable {
 
 	public void touch(MapObject mapObject, int dx, int dy, float delta) {
 
+	}
+
+	protected void selfRemove() {
+		((Map) parent).removeTile(cellX, cellY);
 	}
 }

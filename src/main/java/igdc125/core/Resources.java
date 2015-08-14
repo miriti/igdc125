@@ -10,6 +10,7 @@ import javax.imageio.ImageIO;
 
 public class Resources {
 	private static Resources _instance = null;
+	public static Sound sndBonus;
 	private HashMap<String, BufferedImage> _stored = new HashMap<>();
 	private Font _font;
 
@@ -62,5 +63,9 @@ public class Resources {
 		}
 
 		return _instance._getFont();
+	}
+
+	public static void preload() {
+		sndBonus = new Sound("snd/bonus.wav");
 	}
 }

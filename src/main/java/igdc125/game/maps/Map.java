@@ -1,9 +1,11 @@
-package igdc125.game;
+package igdc125.game.maps;
 
 import java.awt.image.BufferedImage;
 
 import igdc125.core.Container;
 import igdc125.core.Resources;
+import igdc125.game.Mob;
+import igdc125.game.Player;
 import igdc125.game.tiles.Tile;
 
 public class Map extends Container {
@@ -13,10 +15,6 @@ public class Map extends Container {
 	public Map() {
 		super();
 		player = new Player();
-
-		initFromBitmap(Resources.getImage("map.png"));
-
-		addChild(player);
 	}
 
 	public void initFromBitmap(BufferedImage bitmap) {
@@ -35,6 +33,8 @@ public class Map extends Container {
 				}
 			}
 		}
+
+		addChild(player);
 	}
 
 	@Override
@@ -42,6 +42,13 @@ public class Map extends Container {
 		super.update(delta);
 		x = 32 - player.x;
 		y = 32 - player.y;
+	}
+
+	public void removeTile(int atx, int aty) {
+		if (map[atx][aty] != null) {
+			removeChild(map[atx][aty]);
+			map[atx][aty] = null;
+		}
 	}
 
 	public Tile getTile(int x, int y) {

@@ -1,10 +1,11 @@
 package igdc125.game;
 
+import igdc125.core.Container;
+import igdc125.game.maps.Tutorial;
+
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-
-import igdc125.core.Container;
 
 abstract class MenuItem {
 	public String title;
@@ -27,7 +28,7 @@ public class Menu extends Container {
 
 			@Override
 			public void exec() {
-				((Game) parent).setState(new Map());
+				((Game) parent).setState(new Tutorial());
 			}
 		});
 

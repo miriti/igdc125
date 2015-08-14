@@ -31,6 +31,8 @@ public class Main extends Applet implements Runnable {
 
 		Dimension displaySize = Toolkit.getDefaultToolkit().getScreenSize();
 
+		Resources.preload();
+
 		frame = new JFrame("IGDC #125");
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
