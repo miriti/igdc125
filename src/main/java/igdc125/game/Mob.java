@@ -1,19 +1,26 @@
 package igdc125.game;
 
-import igdc125.core.Resources;
-import igdc125.core.Sprite;
+import igdc125.core.Vector;
+import igdc125.game.tiles.Tile;
 
 public class Mob extends MapObject {
+	protected Vector moveSpeed = new Vector();
+	private boolean _inJump;
 
-	private Sprite sprite;
-
-	public Mob() {
-		sprite = new Sprite(Resources.getSprite("spritesheet.png", 0, 0, 9, 9));
-		addChild(sprite);
+	public void jump() {
+		_inJump = true;
+		moveSpeed.y = -60;
 	}
 
+	public boolean inJump() {
+		return _inJump;
+	}
+	
 	@Override
-	public void update(float delta) {
-		super.update(delta);
+	public void tileCollision(Tile tile, float dx, float dy) {
+		if (dy > 0) {
+			moveSpeed.y = 0;
+			_inJump = false;
+		}
 	}
 }

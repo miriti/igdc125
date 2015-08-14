@@ -1,21 +1,22 @@
 package igdc125.game;
 
-import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
 import igdc125.core.Container;
 import igdc125.core.Resources;
+import igdc125.game.tiles.Tile;
 
 public class Map extends Container {
 	public Tile[][] map;
-	private Mob mob;
+	public Mob player;
 
 	public Map() {
 		super();
+		player = new Player();
+
 		initFromBitmap(Resources.getImage("map.png"));
 
-		mob = new Mob();
-		addChild(mob);
+		addChild(player);
 	}
 
 	public void initFromBitmap(BufferedImage bitmap) {
@@ -25,7 +26,7 @@ public class Map extends Container {
 
 		for (int i = 0; i < w; i++) {
 			for (int j = 0; j < h; j++) {
-				Tile tile = Tile.factory(bitmap.getRGB(i, j));
+				Tile tile = Tile.factory(bitmap.getRGB(i, j), i, j, this);
 				map[i][j] = tile;
 
 				if (tile != null) {
@@ -38,27 +39,9 @@ public class Map extends Container {
 
 	@Override
 	public void update(float delta) {
-		x = 32 - mob.x;
-		y = 32 - mob.y;
 		super.update(delta);
-	}
-
-	@Override
-	public void keyPressed(KeyEvent e) {
-		switch (e.getKeyCode()) {
-		case KeyEvent.VK_LEFT:
-			mob.x--;
-			break;
-		case KeyEvent.VK_RIGHT:
-			mob.x++;
-			break;
-		case KeyEvent.VK_UP:
-			mob.y--;
-			break;
-		case KeyEvent.VK_DOWN:
-			mob.y++;
-			break;
-		}
+		x = 32 - player.x;
+		y = 32 - player.y;
 	}
 
 	public Tile getTile(int x, int y) {

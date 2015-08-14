@@ -1,9 +1,10 @@
 package igdc125.game;
 
+import java.awt.event.KeyEvent;
+
 import igdc125.core.Container;
 
 public class Game extends Container {
-
 	Container _currentState = null;
 
 	public Game() {
@@ -17,5 +18,17 @@ public class Game extends Container {
 		}
 		addChild(newState);
 		_currentState = newState;
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		Input.keyPressed(e);
+		super.keyPressed(e);
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		Input.keyReleased(e);
+		super.keyReleased(e);
 	}
 }

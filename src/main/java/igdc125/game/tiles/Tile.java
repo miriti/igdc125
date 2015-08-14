@@ -1,4 +1,4 @@
-package igdc125.game;
+package igdc125.game.tiles;
 
 import java.util.Formattable;
 import java.util.Formatter;
@@ -6,14 +6,22 @@ import java.util.Formatter;
 import igdc125.core.Container;
 import igdc125.core.Resources;
 import igdc125.core.Sprite;
+import igdc125.game.Map;
+import igdc125.game.MapObject;
 
 public class Tile extends Container implements Formattable {
 	public static final int SIZE = 9;
+	public boolean passable = false;
 
-	public static Tile factory(int color) {
+	public static Tile factory(int color, int x, int y, Map map) {
 		switch (color) {
 		case 0xffff0000:
-			return new Tile();
+			return new FloorTile();
+		case 0xffffff00:
+			map.player.setTile(x, y);
+			return null;
+		case 0xff00ff00:
+			return new TravalatorTile();
 		default:
 			return null;
 		}
@@ -21,12 +29,6 @@ public class Tile extends Container implements Formattable {
 
 	public int cellX;
 	public int cellY;
-
-	public Tile() {
-		super();
-
-		addChild(new Sprite(Resources.getSprite("tileset.png", 0, 0, 9, 9)));
-	}
 
 	public void setCell(int cellX, int cellY) {
 		this.cellX = cellX;
@@ -39,6 +41,10 @@ public class Tile extends Container implements Formattable {
 	@Override
 	public void formatTo(Formatter formatter, int flags, int width, int precision) {
 		formatter.format("[%d %d]", cellX, cellY);
+
+	}
+
+	public void touch(MapObject mapObject, int dx, int dy, float delta) {
 
 	}
 }
