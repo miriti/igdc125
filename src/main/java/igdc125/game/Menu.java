@@ -1,6 +1,7 @@
 package igdc125.game;
 
 import igdc125.core.Container;
+import igdc125.core.Resources;
 import igdc125.game.maps.Tutorial;
 
 import java.awt.Graphics2D;
@@ -48,11 +49,11 @@ public class Menu extends Container {
 	public void draw(Graphics2D g) {
 		for (int i = 0; i < items.size(); i++) {
 			if (i == selectedItem) {
-				g.setColor(Palette.PALETTE[3]);
+				Resources.font.setCurrentColor(Palette.PALETTE[3]);
 			} else {
-				g.setColor(Palette.PALETTE[1]);
+				Resources.font.setCurrentColor(Palette.PALETTE[1]);
 			}
-			g.drawString(items.get(i).title, 10, 15 + i * 10);
+			Resources.font.drawString(g, 10, 15 * i, items.get(i).title);
 		}
 	}
 

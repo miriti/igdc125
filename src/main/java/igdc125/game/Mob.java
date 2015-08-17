@@ -5,6 +5,7 @@ import igdc125.game.tiles.Tile;
 
 public class Mob extends MapObject {
 	protected Vector moveSpeed = new Vector();
+	public Vector externalSpeed = new Vector();
 	private boolean _inJump;
 
 	public void jump() {
@@ -15,7 +16,17 @@ public class Mob extends MapObject {
 	public boolean inJump() {
 		return _inJump;
 	}
-	
+
+	@Override
+	public void update(float delta) {
+		moveSpeed.y += Game.GRAVITY * delta;
+
+		x += moveSpeed.x * delta;
+		y += moveSpeed.y * delta;
+		
+		super.update(delta);
+	}
+
 	@Override
 	public void tileCollision(Tile tile, float dx, float dy) {
 		if (dy > 0) {

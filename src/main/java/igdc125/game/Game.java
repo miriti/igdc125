@@ -5,6 +5,8 @@ import java.awt.event.KeyEvent;
 import igdc125.core.Container;
 
 public class Game extends Container {
+	public static final float GRAVITY = 100;
+	
 	Container _currentState = null;
 
 	public Game() {

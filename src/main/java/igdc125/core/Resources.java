@@ -12,7 +12,7 @@ public class Resources {
 	private static Resources _instance = null;
 	public static Sound sndBonus;
 	private HashMap<String, BufferedImage> _stored = new HashMap<>();
-	private Font _font;
+	public static BitmapFont font;
 
 	private BufferedImage _getImage(String path) {
 		if (_stored.containsKey(path)) {
@@ -41,31 +41,8 @@ public class Resources {
 		return _img.getSubimage(x, y, w, h);
 	}
 
-	public Font _getFont() {
-		if (_font == null) {
-			try {
-				_font = Font.createFont(Font.TRUETYPE_FONT, getClass().getClassLoader().getResourceAsStream("visitor2.ttf")).deriveFont(14f);
-			} catch (FontFormatException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-				System.exit(1);
-			}
-			return _font;
-		} else {
-			return _font;
-		}
-	}
-
-	public static Font getFont() {
-		if (_instance == null) {
-			_instance = new Resources();
-		}
-
-		return _instance._getFont();
-	}
-
 	public static void preload() {
+		font = new BitmapFont();
 		sndBonus = new Sound("snd/bonus.wav");
 	}
 }

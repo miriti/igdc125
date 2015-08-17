@@ -19,14 +19,10 @@ public class Player extends Mob {
 			jump();
 		}
 
-		x += moveSpeed.x * delta;
-		y += moveSpeed.y * delta;
-
 		if (moveSpeed.x != 0) {
 			this.scale.x = moveSpeed.x < 0 ? -1 : 1;
 		}
-
-		moveSpeed.y += 100 * delta;
+		
 		super.update(delta);
 	}
 }
