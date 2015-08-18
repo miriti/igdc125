@@ -21,6 +21,11 @@ public class Mob extends MapObject {
 		return _inJump;
 	}
 
+	protected void stopJump() {
+		moveSpeed.y = 0;
+		_inJump = false;
+	}
+
 	@Override
 	public void update(float delta) {
 		moveSpeed.y += Game.GRAVITY * delta;
@@ -39,8 +44,7 @@ public class Mob extends MapObject {
 			}
 
 			if (dy < 0) {
-				moveSpeed.y = 0;
-				_inJump = false;
+				stopJump();
 			}
 		}
 	}

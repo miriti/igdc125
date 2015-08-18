@@ -28,6 +28,7 @@ class Saw extends MapObject {
 	@Override
 	public void tileCollision(Tile tile, float dx, float dy) {
 		if (tile != emmiter) {
+			// TODO Some particle effect
 			getMap().removeChild(this);
 		}
 	}

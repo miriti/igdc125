@@ -18,6 +18,26 @@ public abstract class Interpolate {
 		return this;
 	}
 
+	public Interpolate changeValue(float value) {
+		totalTime = (value / (end - start)) * time;
+		current = value;
+		finished = false;
+		return this;
+	}
+
+	public Interpolate change(float start, float end) {
+		this.start = start;
+		this.end = end;
+		finished = false;
+		return this;
+	}
+
+	public Interpolate reset() {
+		totalTime = 0;
+		finished = false;
+		return this;
+	}
+
 	public boolean isFinished() {
 		return finished;
 	}
