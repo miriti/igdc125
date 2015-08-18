@@ -9,8 +9,12 @@ public class Mob extends MapObject {
 	private boolean _inJump;
 
 	public void jump() {
+		jump(65);
+	}
+
+	public void jump(float value) {
 		_inJump = true;
-		moveSpeed.y = -60;
+		moveSpeed.y = -value;
 	}
 
 	public boolean inJump() {
@@ -23,15 +27,21 @@ public class Mob extends MapObject {
 
 		x += moveSpeed.x * delta;
 		y += moveSpeed.y * delta;
-		
+
 		super.update(delta);
 	}
 
 	@Override
 	public void tileCollision(Tile tile, float dx, float dy) {
-		if (dy > 0) {
-			moveSpeed.y = 0;
-			_inJump = false;
+		if (dx == 0) {
+			if (dy > 0) {
+				moveSpeed.y = 0;
+			}
+
+			if (dy < 0) {
+				moveSpeed.y = 0;
+				_inJump = false;
+			}
 		}
 	}
 }

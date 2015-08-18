@@ -15,13 +15,10 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Date;
-import java.util.Formatter;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
-import com.sun.javafx.binding.StringFormatter;
 
 import igdc125.core.Resources;
 import igdc125.game.Game;
@@ -66,7 +63,8 @@ public class Main extends Applet implements Runnable {
 
 			g.drawString(String.valueOf(c), fx, fy + metrix.getHeight());
 
-			String str = StringFormatter.format("%s\t%d\t%d\t%d\t%d\n", c, fx, fy, charWidth, charHeight).getValue();
+			String str = c + "\t" + fx + "\t" + fy + "\t" + charWidth + "\t" + charHeight + "\n";
+
 			try {
 				writer.write(str);
 			} catch (IOException e) {
@@ -92,13 +90,13 @@ public class Main extends Applet implements Runnable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		System.out.println("DONE!");
 		System.exit(0);
 	}
 
 	public static void main(String[] args) {
-		if((args.length==1)&&(args[0].equals("--generate-font"))){
+		if ((args.length == 1) && (args[0].equals("--generate-font"))) {
 			generateFont();
 		}
 

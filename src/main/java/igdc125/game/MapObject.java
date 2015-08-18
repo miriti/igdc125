@@ -31,6 +31,8 @@ public abstract class MapObject extends Container {
 	public void tilesCollision() {
 		for (int i = tileX() - 1; i <= tileX() + 1; i++) {
 			for (int j = tileY() - 1; j <= tileY() + 1; j++) {
+				if (parent == null)
+					return;
 				Tile tile = ((Map) parent).getTile(i, j);
 
 				if ((tile != null) && (!tile.passable)) {
@@ -47,7 +49,7 @@ public abstract class MapObject extends Container {
 						if (Math.abs(offsetx) > Math.abs(offsety)) {
 							if (dy < 0) {
 								y -= offsety;
-								tileCollision(tile, 0, offsety);
+								tileCollision(tile, 0, -offsety);
 							} else {
 								y += offsety;
 								tileCollision(tile, 0, offsety);
@@ -55,7 +57,7 @@ public abstract class MapObject extends Container {
 						} else {
 							if (dx < 0) {
 								x -= offsetx;
-								tileCollision(tile, offsetx, 0);
+								tileCollision(tile, -offsetx, 0);
 							} else {
 								x += offsetx;
 								tileCollision(tile, offsetx, 0);
@@ -70,6 +72,9 @@ public abstract class MapObject extends Container {
 	@Override
 	public void update(float delta) {
 		tilesCollision();
+		
+		if (getMap() == null)
+			return;
 
 		Tile[] touched = new Tile[] { getMap().getTile(tileX() - 1, tileY()), getMap().getTile(tileX() + 1, tileY()),
 				getMap().getTile(tileX(), tileY() - 1), getMap().getTile(tileX(), tileY() + 1) };

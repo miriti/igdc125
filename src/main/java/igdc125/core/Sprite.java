@@ -17,6 +17,7 @@ public class Sprite extends Container {
 	private ArrayList<BufferedImage> frames;
 	private float _lastFrameTime = 0f;
 	private int _direction = 1;
+	public Vector anchor = new Vector(0.5f, 0.5f);
 
 	public Sprite(BufferedImage image, int frameWidth, int frameHeight, int fps) {
 		_image = image;
@@ -37,6 +38,21 @@ public class Sprite extends Container {
 		}
 
 		_currentFrameImage = frames.get(0);
+	}
+
+	public Sprite setCurrentFrame(int frameNum) {
+		if ((frameNum >= 0) && (frameNum <= frames.size() - 1)) {
+			_currentFrame = frameNum;
+			_currentFrameImage = frames.get(frameNum);
+		}else{
+			System.out.println(frames.size());
+		}
+		return this;
+	}
+
+	public Sprite pause() {
+		_paused = true;
+		return this;
 	}
 
 	public Sprite invert() {
@@ -77,6 +93,6 @@ public class Sprite extends Container {
 
 	@Override
 	public void draw(Graphics2D g) {
-		g.drawImage(_currentFrameImage, -_frameWidth / 2, -_frameHeight / 2, null);
+		g.drawImage(_currentFrameImage, (int) (-_frameWidth * anchor.x), (int) (-_frameHeight * anchor.y), null);
 	}
 }

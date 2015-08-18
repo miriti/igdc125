@@ -1,9 +1,9 @@
 package igdc125.game.maps;
 
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import igdc125.core.Container;
-import igdc125.core.Resources;
 import igdc125.game.Mob;
 import igdc125.game.Player;
 import igdc125.game.tiles.Tile;
@@ -12,9 +12,27 @@ public class Map extends Container {
 	public Tile[][] map;
 	public Mob player;
 
+	public ArrayList<Mob> mobs = new ArrayList<>();
+
 	public Map() {
 		super();
 		player = new Player();
+	}
+
+	@Override
+	public void addChild(Container child) {
+		if (child instanceof Mob) {
+			mobs.add((Mob) child);
+		}
+		super.addChild(child);
+	}
+
+	@Override
+	public void removeChild(Container child) {
+		if (child instanceof Mob) {
+			mobs.remove((Mob) child);
+		}
+		super.removeChild(child);
 	}
 
 	public void initFromBitmap(BufferedImage bitmap) {

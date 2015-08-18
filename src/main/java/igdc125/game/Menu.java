@@ -2,7 +2,7 @@ package igdc125.game;
 
 import igdc125.core.Container;
 import igdc125.core.Resources;
-import igdc125.game.maps.Tutorial;
+import igdc125.game.maps.Tower;
 
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -29,7 +29,7 @@ public class Menu extends Container {
 
 			@Override
 			public void exec() {
-				((Game) parent).setState(new Tutorial());
+				((Game) parent).setState(new Tower());
 			}
 		});
 
