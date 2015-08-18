@@ -1,23 +1,16 @@
 package igdc125.game;
 
-import java.awt.event.KeyEvent;
-
 import igdc125.core.Resources;
 import igdc125.core.Sprite;
-import igdc125.interpolation.Interpolate;
-import igdc125.interpolation.Sine;
-import sun.security.jgss.spnego.SpNegoCredElement;
+import igdc125.game.tiles.Tile;
 
 public class Player extends Mob {
 	private Sprite sprite;
-	private Interpolate speedInt;
-	private Interpolate speedDown;
-	private Interpolate speed;
+
+	private float _speed = 0;
 
 	public Player() {
 		sprite = new Sprite(Resources.getSprite("spritesheet.png", 0, 0, 9, 18), 9, 9, 2).pause().setCurrentFrame(1);
-		speedInt = new Sine().init(0f, 1f, 0.5f);
-		speedDown = new Sine().init(1f, 0f, 0.8f);
 		addChild(sprite);
 	}
 
@@ -34,35 +27,25 @@ public class Player extends Mob {
 	}
 
 	@Override
-	public void keyPressed(KeyEvent e) {
-		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-			speedInt.change(0, -1);
-			speedInt.changeValue(moveSpeed.x);
-			speed = speedInt;
-		}
-
-		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-			speedInt.change(0, 1);
-			speedInt.changeValue(moveSpeed.x);
-			speed = speedInt;
-		}
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
-		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-			speedDown.change(1, 0);
-			speedDown.changeValue(moveSpeed.x);
-			speed = speedDown;
-		}
-
-	}
-
-	@Override
 	public void update(float delta) {
 
-		if (speed != null) {
-			moveSpeed.x = speed.next(delta) * 60;
+		if (Input.getVector().x != 0) {
+			moveSpeed.x = _speed;
+			if (Input.getVector().x == 1) {
+				if (_speed < 60) {
+					_speed += 180 * delta;
+				}
+			} else {
+				if (_speed > -60) {
+					_speed -= 180 * delta;
+				}
+			}
+
+		} else {
+			_speed = 0;
+			if (moveSpeed.x != 0) {
+				moveSpeed.x *= 0.9f;
+			}
 		}
 
 		if (Input.getUp() == 1 && !inJump()) {
@@ -70,9 +53,17 @@ public class Player extends Mob {
 		}
 
 		if (moveSpeed.x != 0) {
-			scale.x = moveSpeed.x < 0 ? -1 : 1;
+			scale.x = Input.getVector().x < 0 ? -1 : 1;
 		}
 
 		super.update(delta);
+	}
+
+	@Override
+	public void tileCollision(Tile tile, float dx, float dy) {
+		if (dx != 0) {
+			_speed = 0;
+		}
+		super.tileCollision(tile, dx, dy);
 	}
 }

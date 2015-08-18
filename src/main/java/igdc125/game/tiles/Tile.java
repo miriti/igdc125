@@ -26,6 +26,8 @@ public class Tile extends Container implements Formattable {
 			return new SawThrow();
 		case 0xff800080:
 			return new Spring();
+		case 0xff008080:
+			return new Press();
 		default:
 			return null;
 		}

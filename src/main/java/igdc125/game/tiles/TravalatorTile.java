@@ -3,6 +3,7 @@ package igdc125.game.tiles;
 import igdc125.core.Resources;
 import igdc125.core.Sprite;
 import igdc125.game.MapObject;
+import igdc125.game.Mob;
 
 public class TravalatorTile extends Tile {
 	private Sprite anim;
@@ -16,7 +17,7 @@ public class TravalatorTile extends Tile {
 	@Override
 	public void touch(MapObject mapObject, int dx, int dy, float delta) {
 		if (dy == 1) {
-			mapObject.x += 10 * delta;
+			((Mob) mapObject).externalSpeed.x = 30f;
 		}
 	}
 }

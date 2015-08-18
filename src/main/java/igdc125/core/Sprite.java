@@ -19,6 +19,8 @@ public class Sprite extends Container {
 	private int _direction = 1;
 	public Vector anchor = new Vector(0.5f, 0.5f);
 
+	private boolean _yoyo;
+
 	public Sprite(BufferedImage image, int frameWidth, int frameHeight, int fps) {
 		_image = image;
 		_animated = true;
@@ -40,12 +42,15 @@ public class Sprite extends Container {
 		_currentFrameImage = frames.get(0);
 	}
 
+	public Sprite yoyo(boolean yoyo) {
+		_yoyo = yoyo;
+		return this;
+	}
+
 	public Sprite setCurrentFrame(int frameNum) {
 		if ((frameNum >= 0) && (frameNum <= frames.size() - 1)) {
 			_currentFrame = frameNum;
 			_currentFrameImage = frames.get(frameNum);
-		}else{
-			System.out.println(frames.size());
 		}
 		return this;
 	}
@@ -75,11 +80,21 @@ public class Sprite extends Container {
 
 				if (_direction == 1) {
 					if (_currentFrame > frames.size() - 1) {
-						_currentFrame = 0;
+						if (_yoyo) {
+							_currentFrame = _currentFrame - 1;
+							_direction = -1;
+						} else {
+							_currentFrame = 0;
+						}
 					}
 				} else {
 					if (_currentFrame < 0) {
-						_currentFrame = frames.size() - 1;
+						if (_yoyo) {
+							_currentFrame = _currentFrame + 1;
+							_direction = 1;
+						} else {
+							_currentFrame = frames.size() - 1;
+						}
 					}
 				}
 				_lastFrameTime = 0f;

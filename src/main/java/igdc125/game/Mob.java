@@ -30,8 +30,8 @@ public class Mob extends MapObject {
 	public void update(float delta) {
 		moveSpeed.y += Game.GRAVITY * delta;
 
-		x += moveSpeed.x * delta;
-		y += moveSpeed.y * delta;
+		x += (moveSpeed.x + externalSpeed.x) * delta;
+		y += (moveSpeed.y + externalSpeed.y) * delta;
 
 		super.update(delta);
 	}
