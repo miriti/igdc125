@@ -13,21 +13,31 @@ public class Tile extends Container implements Formattable {
 
 	public static Tile factory(int color, int x, int y, Map map) {
 		switch (color) {
-		case 0xffff0000:
-			return new FloorTile();
+		case 0xffffffff:
+			return new Checkpoint();
 		case 0xffffff00:
+			map.playerSpawn.x = x;
+			map.playerSpawn.y = y;
 			map.player.setTile(x, y);
 			return null;
+		case 0xffff0000:
+			return new FloorTile();
 		case 0xff00ff00:
-			return new TravalatorTile();
+			return new TravalatorTile(1);
+		case 0xff008000:
+			return new TravalatorTile(-1);
 		case 0xffff00ff:
 			return new Bonus();
 		case 0xff00ffff:
-			return new SawThrow();
+			return new SawThrow(1);
+		case 0xff0080ff:
+			return new SawThrow(-1);
 		case 0xff800080:
 			return new Spring();
 		case 0xff008080:
 			return new Press();
+		case 0xff000000:
+			return new Exit();
 		default:
 			return null;
 		}

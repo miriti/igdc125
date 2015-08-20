@@ -12,6 +12,7 @@ public abstract class Container extends Base implements IGameObject, KeyListener
 	public float rotation = 0;
 	public Vector scale = new Vector(1f, 1f);
 	public Container parent = null;
+	protected boolean visible = true;
 
 	private ArrayList<Container> children = new ArrayList<>();
 
@@ -44,9 +45,11 @@ public abstract class Container extends Base implements IGameObject, KeyListener
 		g.rotate(rotation);
 		g.scale(scale.x, scale.y);
 
-		draw(g);
-		for (Container child : children) {
-			child.render(g);
+		if (visible) {
+			draw(g);
+			for (Container child : children) {
+				child.render(g);
+			}
 		}
 
 		g.setTransform(ma);

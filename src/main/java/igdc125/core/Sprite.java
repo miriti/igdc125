@@ -17,6 +17,7 @@ public class Sprite extends Container {
 	private ArrayList<BufferedImage> frames;
 	private float _lastFrameTime = 0f;
 	private int _direction = 1;
+	public int repeats = -1;
 	public Vector anchor = new Vector(0.5f, 0.5f);
 
 	private boolean _yoyo;
@@ -84,12 +85,18 @@ public class Sprite extends Container {
 							_currentFrame = _currentFrame - 1;
 							_direction = -1;
 						} else {
+							if (repeats != -1) {
+								pause();
+							}
 							_currentFrame = 0;
 						}
 					}
 				} else {
 					if (_currentFrame < 0) {
 						if (_yoyo) {
+							if (repeats != -1) {
+								pause();
+							}
 							_currentFrame = _currentFrame + 1;
 							_direction = 1;
 						} else {
@@ -109,5 +116,14 @@ public class Sprite extends Container {
 	@Override
 	public void draw(Graphics2D g) {
 		g.drawImage(_currentFrameImage, (int) (-_frameWidth * anchor.x), (int) (-_frameHeight * anchor.y), null);
+	}
+
+	public Sprite play() {
+		_paused = false;
+		return this;
+	}
+
+	public boolean isPaused() {
+		return _paused;
 	}
 }

@@ -4,19 +4,26 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import igdc125.core.Container;
+import igdc125.core.Vector;
 import igdc125.game.Mob;
 import igdc125.game.Player;
 import igdc125.game.tiles.Tile;
+import igdc125.interpolation.Interpolate;
+import igdc125.interpolation.Sine;
 
 public class Map extends Container {
 	public Tile[][] map;
 	public Mob player;
+	public Vector playerSpawn = new Vector();
 
 	public ArrayList<Mob> mobs = new ArrayList<>();
 
+	private Interpolate _cameraX = null;
+	private Interpolate _cameraY = null;
+
 	public Map() {
 		super();
-		player = new Player();
+		player = new Player(false);
 	}
 
 	@Override
@@ -58,8 +65,21 @@ public class Map extends Container {
 	@Override
 	public void update(float delta) {
 		super.update(delta);
-		x = 32 - player.x;
-		y = 32 - player.y;
+
+		if ((_cameraX != null) && (_cameraY != null)) {
+			x = _cameraX.next(delta);
+			y = _cameraY.next(delta);
+
+			if (_cameraX.isFinished() || _cameraY.isFinished()) {
+				_cameraX = _cameraY = null;
+			}
+		} else {
+
+			if (!player.dead) {
+				x = 32 - player.x;
+				y = 32 - player.y;
+			}
+		}
 	}
 
 	public void removeTile(int atx, int aty) {
@@ -76,5 +96,15 @@ public class Map extends Container {
 
 		return null;
 
+	}
+
+	public void respawnPlayer() {
+		removeChild(player);
+		player = new Player(true);
+		player.setTile((int) playerSpawn.x, (int) playerSpawn.y);
+		addChild(player);
+
+		_cameraX = new Sine().init(x, 32 - player.x, 1f);
+		_cameraY = new Sine().init(y, 32 - player.y, 1f);
 	}
 }

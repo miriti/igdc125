@@ -8,8 +8,10 @@ import igdc125.game.MapObject;
 class Saw extends MapObject {
 	private Sprite sprite;
 	private SawThrow emmiter;
+	private int _direction;
 
-	public Saw(SawThrow emmiter) {
+	public Saw(SawThrow emmiter, int dir) {
+		_direction = dir;
 		this.emmiter = emmiter;
 		sprite = new Sprite(Resources.getSprite("spritesheet.png", 18, 0, 9, 9));
 		addChild(sprite);
@@ -17,10 +19,10 @@ class Saw extends MapObject {
 
 	@Override
 	public void update(float delta) {
-		if(Vector.len(x, y, getMap().player.x, getMap().player.y) < 5) {
-			System.out.println("HIT");
+		if (Vector.len(x, y, getMap().player.x, getMap().player.y) < 5) {
+			getMap().player.kill();
 		}
-		x += 60 * delta;
+		x += (55f * _direction) * delta;
 		rotation += (Math.PI * 6) * delta;
 		super.update(delta);
 	}
@@ -35,17 +37,20 @@ class Saw extends MapObject {
 }
 
 public class SawThrow extends Tile {
-	private float _interval = 0.5f;
+	private float _interval = 0.75f;
 	private float _time = 0.0f;
+	private int _direction;
 
-	public SawThrow() {
+	public SawThrow(int dir) {
 		super();
+
+		_direction = dir;
 
 		addChild(new Sprite(Resources.getSprite("tileset.png", 18, 0, 9, 9)));
 	}
 
 	private void emit() {
-		Saw saw = new Saw(this);
+		Saw saw = new Saw(this, _direction);
 		saw.x = x;
 		saw.y = y;
 		getMap().addChild(saw);

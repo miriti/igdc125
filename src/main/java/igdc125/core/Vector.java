@@ -30,4 +30,20 @@ public class Vector {
 	public String toString() {
 		return "[" + x + ", " + y + "]";
 	}
+
+	public Vector mult(float a) {
+		return mult(a, a);
+	}
+
+	public Vector mult(float mx, float my) {
+		x *= mx;
+		y *= my;
+		return this;
+	}
+
+	public Vector set(float d) {
+		x = d;
+		y = d;
+		return this;
+	}
 }

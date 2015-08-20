@@ -16,9 +16,11 @@ public class Bonus extends Tile {
 
 	@Override
 	public void update(float delta) {
-		if (Vector.len(x, y, getMap().player.x, getMap().player.y) < 7) {
-			Resources.sndBonus.play();
-			selfRemove();
+		if (!getMap().player.dead) {
+			if (Vector.len(x, y, getMap().player.x, getMap().player.y) < 7) {
+				Resources.sndBonus.play();
+				selfRemove();
+			}
 		}
 		super.update(delta);
 	}

@@ -2,6 +2,7 @@ package igdc125.game;
 
 import igdc125.core.Container;
 import igdc125.core.Resources;
+import igdc125.core.Sprite;
 import igdc125.game.maps.Tower;
 
 import java.awt.Graphics2D;
@@ -18,9 +19,13 @@ public class Menu extends Container {
 
 	private ArrayList<MenuItem> items = new ArrayList<>();
 	private int selectedItem = 0;
+	private Sprite bg;
 
 	public Menu() {
 		super();
+
+		bg = new Sprite(Resources.getImage("menu.png"));
+		bg.anchor.set(0, 0);
 
 		items.add(new MenuItem() {
 			{
@@ -47,13 +52,14 @@ public class Menu extends Container {
 
 	@Override
 	public void draw(Graphics2D g) {
+		bg.draw(g);
 		for (int i = 0; i < items.size(); i++) {
 			if (i == selectedItem) {
 				Resources.font.setCurrentColor(Palette.PALETTE[3]);
 			} else {
 				Resources.font.setCurrentColor(Palette.PALETTE[1]);
 			}
-			Resources.font.drawString(g, 10, 15 * i, items.get(i).title);
+			Resources.font.drawString(g, 20, 42 + 8 * i, items.get(i).title);
 		}
 	}
 
